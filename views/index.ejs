@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather By sagar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="all_body" style="background-image: url(/img/3.jpg)">
+    <div class="right">
+      <div class="topnav">
+        <div class="search-container">
+          <form action="/" method="post">
+            <input type="text" placeholder="Location.." name="search">
+    <button type="submit"><i class="fa fa-search" style="background: #1f2727;"></i></button>
+          </form>
+        </div>
+      </div>
+      <h3 id="invalid"><%=invalid%></h3>
+      <div class="update">
+        <h5>Weather Details</h5>
+         <div class="item">
+          <div class="name">Cloudy</div>
+          <div class="value"><%=cloudy%></div>
+         </div>
+         <div class="item">
+          <div class="name">Humidity</div>
+          <div class="value"><%=humidity%></div>
+         </div>
+         <div class="item">
+          <div class="name">Wind</div>
+          <div class="value"><%=wind%></div>
+         </div>
+         <div class="item">
+          <div class="name">Pressure</div>
+          <div class="value"><%=pressure%></div>
+         </div>
+      </div>
+      <div class="hourly">
+        <div class="h_item">
+          <p><%=temp1%>°</p>
+          <p class="h_pop"><%=pop1%></p>
+          <img src="<%=link%>" alt="" srcset="">
+          <p class="h_time"><%=time1%></p>
+        </div>
+        <div class="h_item">
+          <p><%=temp2%>°</p>
+          <p class="h_pop"><%=pop2%></p>
+          <img src="<%=link%>" alt="" srcset="">
+          <p class="h_time"><%=time2%></p>
+        </div>
+        <div class="h_item">
+          <p><%=temp3%>°</p>
+          <p class="h_pop"><%=pop3%></p>
+          <img src="<%=link%>" alt="" srcset="">
+          <p class="h_time"><%=time3%></p>
+        </div>
+        <div class="h_item">
+          <p><%=temp4%>°</p>
+          <p class="h_pop"><%=pop4%></p>
+          <img src="<%=link%>" alt="" srcset="">
+          <p class="h_time"><%=time4%></p>
+        </div>
+        <div class="h_item">
+          <p><%=temp5%>°</p>
+          <p class="h_pop"><%=pop5%></p>
+          <img src="<%=link%>" alt="" srcset="">
+          <p class="h_time"><%=time5%></p>
+        </div>
+        <div class="h_item">
+          <p><%=temp6%>°</p>
+          <p class="h_pop"><%=pop6%></p>
+          <img src="<%=link%>" alt="" srcset="">
+          <p class="h_time"><%=time6%></p>
+        </div>
+      </div>
+    </div>
+    <div >
+      <img src="./img/logo.png" alt="" srcset="" class="logo">
+    </div>
+    <div class="cont_2">
+      <h1 id="temp"><%=temp%>°</h1>
+      <h3 id="feel">Feel like <%=temp_f%>°</h3>
+      <div class="c_t">
+        <h1 id="city"><%=city%></h1>
+        <h5 id="date"><%=date%></h5>
+      </div>
+      <div class="img_main">
+        <img src="<%=link%>" alt="" id="image">
+         <h4 id="main"><%=main%></h4>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
