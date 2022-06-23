@@ -101,7 +101,7 @@ app.post("/", function (req, res) {
         icon = wdata.weather[0].icon;
         link = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
         main = wdata.weather[0].main;
-        dt = givedate();
+        dt = givedate(wdata.dt+"000");
         cloudy = wdata.clouds.all + "%";
         humidity = wdata.main.humidity + "%";
         wind = parseInt(((wdata.wind.speed) * 18) / 5) + "Km/h";
@@ -153,8 +153,8 @@ app.post("/", function (req, res) {
 
 })
 
-function givedate() {
-  let dt = new Date();
+function givedate(sec) {
+  let dt = new Date(sec);
   let h = dt.getHours();
   if (h > 12) {
     h = h - 12;
