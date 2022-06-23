@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
       temp_f = parseInt(wdata.main.feels_like);
       icon = wdata.weather[0].icon;
       link = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
-      dt = givedate();
+      dt = givedate(Number(wdata.dt+"000"));
       main = wdata.weather[0].main;
       cloudy = wdata.clouds.all + "%";
       humidity = wdata.main.humidity + "%";
@@ -50,7 +50,7 @@ app.get("/", function (req, res) {
         let t = parseInt(fdata.list[i].main.temp);
         h_temp[i] = t;
          let l = fdata.list[i].weather[0].icon
-         h_link[i] = "http://openweathermap.org/img/wn/" + l + "@2x.png";
+         h_link[i] =  "/img/"+ l + "@2x.png";
       }
       
       res.render('index', {
@@ -101,7 +101,7 @@ app.post("/", function (req, res) {
         icon = wdata.weather[0].icon;
         link = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
         main = wdata.weather[0].main;
-        dt = givedate(wdata.dt+"000");
+        dt = givedate(Number(wdata.dt+"000"));
         cloudy = wdata.clouds.all + "%";
         humidity = wdata.main.humidity + "%";
         wind = parseInt(((wdata.wind.speed) * 18) / 5) + "Km/h";
@@ -134,7 +134,7 @@ app.post("/", function (req, res) {
             let t = parseInt(fdata.list[i].main.temp);
             h_temp[i] = t;
             let l = fdata.list[i].weather[0].icon
-            h_link[i] = "http://openweathermap.org/img/wn/" + l + "@2x.png";
+            h_link[i] =  "/img/"+ l + "@2x.png";
           }
           res.render('index', {
             temp: temp, temp_f: temp_f, link: link, city: city, invalid: "", date: dt, main: main,
@@ -164,6 +164,7 @@ function givedate(sec) {
     m = "0" + m;
   }
   let d = dt.getDay();
+  let day;
   switch (d) {
     case 0:
       day = "Sun";
