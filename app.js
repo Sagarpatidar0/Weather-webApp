@@ -152,9 +152,9 @@ app.post("/", function (req, res) {
   });
 
 })
-
+let ofset = 330*60*1000;
 function givedate(sec) {
-  let dt = new Date(sec);
+  let dt = new Date(sec+ofset);
   let h = dt.getHours();
   if (h > 12) {
     h = h - 12;
