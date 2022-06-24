@@ -21,7 +21,7 @@ app.get("/", function (req, res) {
       temp = parseInt(wdata.main.temp) - 1;
       temp_f = parseInt(wdata.main.feels_like);
       icon = wdata.weather[0].icon;
-      link = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+      link = "/img/" + icon + "@2x.png"
       dt = givedate(Number(wdata.dt+"000"));
       main = wdata.weather[0].main;
       cloudy = wdata.clouds.all + "%";
@@ -99,7 +99,7 @@ app.post("/", function (req, res) {
         temp = Math.floor(Number(wdata.main.temp));
         temp_f = Math.floor(wdata.main.feels_like);
         icon = wdata.weather[0].icon;
-        link = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
+        link = "/img/" + icon + "@2x.png"
         main = wdata.weather[0].main;
         dt = givedate(Number(wdata.dt+"000"));
         cloudy = wdata.clouds.all + "%";
@@ -114,7 +114,6 @@ app.post("/", function (req, res) {
 
         var datas = [];
         responce.on("data", function (data) {
-          console.log("   get4rs");
           datas.push(data);
         })
         responce.on("end", () => {

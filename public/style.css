@@ -1,3 +1,6 @@
+html{
+  font-size: 110%;
+}
 * {
   padding: 0;
   margin: 0;
@@ -86,7 +89,7 @@ form {
 
 .right {
   border-bottom-right-radius: 7px;
-  width: 340px;
+  width: 21.25rem;
   height: 80vh;
   background: #1f2727;
   position: absolute;
@@ -100,7 +103,6 @@ form {
   }
 
   .logo{
-    /* height: 20%; */
     margin: 20px;
     width: 10%;
   }
