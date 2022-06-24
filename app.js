@@ -28,13 +28,20 @@ app.get("/", function (req, res) {
       humidity = wdata.main.humidity + "%";
       wind = parseInt(((wdata.wind.speed) * 18) / 5) + "Km/h";
       pressure = wdata.main.pressure + "hPa";
-      console.log("get1");
+      
     })
   });
   let url2 = "https://api.openweathermap.org/data/2.5/forecast?q=bhopal&appid=ce3bfcd5c9db9c2e58557b2c6082c035&units=metric"
   https.get(url2, function (responce) {
-    responce.on("data", function (data) {
-      const fdata = JSON.parse(data);
+
+    var datas = [];
+
+    responce.on("data", async function (data) {
+      await datas.push(data);
+    })
+    responce.on("end", () => {
+      let data   = Buffer.concat(datas);
+      fdata =  JSON.parse(data);
       for (let i = 0; i < 6; i++) {
         let sec = parseInt((fdata.list[i].dt + "000"));
         let h_dt = new Date(sec);
@@ -49,8 +56,8 @@ app.get("/", function (req, res) {
         h_pop[i] = parseInt(pop) + "%";
         let t = parseInt(fdata.list[i].main.temp);
         h_temp[i] = t;
-         let l = fdata.list[i].weather[0].icon
-         h_link[i] =  "/img/"+ l + "@2x.png";
+        let l = fdata.list[i].weather[0].icon
+        h_link[i] =  "/img/"+ l + "@2x.png";
       }
       
       res.render('index', {
