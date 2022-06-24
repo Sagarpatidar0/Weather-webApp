@@ -175,17 +175,17 @@ form {
 
 .hourly{
   display: flex;
-  position: absolute;
-  top: 265px;
-  right: 45px;
-  border-bottom: 1px solid;
-  height: 100px;
+    position: absolute;
+    top: 280px;
+    right: 45px;
+    border-bottom: 1px solid;
+    height: 125px;
 }
 .h_item{
-  padding: 3px;
+  padding: 5px;
   text-align: center;
   position: relative;
-  margin-left: 10px;
+  margin-left: 13px;
   width: 28px;
 }
 .h_item img{
@@ -197,10 +197,12 @@ form {
 }
 .h_time{
   position: absolute;
-    top: 62px;
+  top: 81px;
+
 }
 .h_pop{
   color: rgb(72, 157, 255);
+  padding: 3px;
 }
 
 .foot{
