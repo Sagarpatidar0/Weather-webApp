@@ -13,7 +13,8 @@ body {
 .topnav {
   overflow: hidden;
   background: #1f2727;
-  border-top-right-radius: 7px
+  border-top-right-radius: 7px;
+  /* position: relative; */
 }
 
 
@@ -28,6 +29,9 @@ body {
   border: 2px solid white;
   border-radius: 5px;
   /* background: rgb(153, 153, 153); */
+  position: absolute;
+  right: 118px;
+  top: 10px;
 
 }
 
@@ -39,8 +43,8 @@ form {
 .topnav .search-container button {
   float: right;
   padding: 6px 10px;
-  margin-top: 8px;
-  margin-right: 16px;
+  margin-top: 22px;
+  margin-right: 80px;
   background: #1f2727;
   font-size: 17px;
   border: none;
