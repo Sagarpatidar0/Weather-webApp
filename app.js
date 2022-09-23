@@ -12,6 +12,8 @@ let temp = 30;
 let icon;
 let link, temp_f, dt, cloudy, humidity, pressure, wind, main;
 let h_temp = [], h_pop = [], h_time = [], h_link = [];
+
+
 app.get("/", function (req, res) {
   let url = "https://api.openweathermap.org/data/2.5/weather?q=bhopal&appid=ce3bfcd5c9db9c2e58557b2c6082c035&units=metric"
   https.get(url, function (responce) {
