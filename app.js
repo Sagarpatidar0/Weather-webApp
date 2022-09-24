@@ -83,84 +83,89 @@ app.post("/", function (req, res) {
   prev_city = city;
   city = (req.body.search);
   let url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=ce3bfcd5c9db9c2e58557b2c6082c035&units=metric"
-  https.get(url, function (responce) {
-
-    if (responce.statusCode >= 400 && responce.statusCode <= 500) {
-
-      if (invalid_chack == 1) {
-        B_city = prev_city;
-      } else if (invalid_chack == 0) {
-        B_city = "Bhopal";
-        invalid_chack--;
-      }
-      invalid_chack++;
-      console.log(responce.statusCode);
-      res.render('index', {
-        temp: temp, temp_f: temp_f, link: link, city: B_city, invalid: "Invalid location", date: dt, main: main,
-        pressure: pressure, wind: wind, cloudy: cloudy, humidity: humidity,
-        temp1: h_temp[0], temp2: h_temp[1], temp3: h_temp[2], temp4: h_temp[3], temp5: h_temp[4], temp6: h_temp[5],
-        pop1: h_pop[0], pop2: h_pop[1], pop3: h_pop[2], pop4: h_pop[3], pop5: h_pop[4], pop6: h_pop[5],
-        time1: h_time[0], time2: h_time[1], time3: h_time[2], time4: h_time[3], time5: h_time[4], time6: h_time[5],
-        link1: h_link[0], link2: h_link[1], link3: h_link[2], link4: h_link[3], link5: h_link[4], link6: h_link[5]
-      });
-
-    } else {
-      responce.on("data", function (data) {
-        invalid_chack = 1;
-        const wdata = JSON.parse(data);
-        temp = Math.floor(Number(wdata.main.temp));
-        temp_f = Math.floor(wdata.main.feels_like);
-        icon = wdata.weather[0].icon;
-        link = "/img/" + icon + "@2x.png"
-        main = wdata.weather[0].main;
-        dt = givedate(Number(wdata.dt + "000"));
-        cloudy = wdata.clouds.all + "%";
-        humidity = wdata.main.humidity + "%";
-        wind = parseInt(((wdata.wind.speed) * 18) / 5) + "Km/h";
-        pressure = wdata.main.pressure + "hPa";
-
-
-      })
-      let url2 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=ce3bfcd5c9db9c2e58557b2c6082c035&units=metric"
-      https.get(url2, function (responce) {
-
-        var datas=[];
-        responce.on("data", async function (data) {
-          await datas.push(data);
+  try {
+    https.get(url, function (responce) {
+  
+      if (responce.statusCode >= 400 && responce.statusCode <= 500) {
+  
+        if (invalid_chack == 1) {
+          B_city = prev_city;
+        } else if (invalid_chack == 0) {
+          B_city = "Bhopal";
+          invalid_chack--;
+        }
+        invalid_chack++;
+        console.log(responce.statusCode);
+        res.render('index', {
+          temp: temp, temp_f: temp_f, link: link, city: B_city, invalid: "Invalid location", date: dt, main: main,
+          pressure: pressure, wind: wind, cloudy: cloudy, humidity: humidity,
+          temp1: h_temp[0], temp2: h_temp[1], temp3: h_temp[2], temp4: h_temp[3], temp5: h_temp[4], temp6: h_temp[5],
+          pop1: h_pop[0], pop2: h_pop[1], pop3: h_pop[2], pop4: h_pop[3], pop5: h_pop[4], pop6: h_pop[5],
+          time1: h_time[0], time2: h_time[1], time3: h_time[2], time4: h_time[3], time5: h_time[4], time6: h_time[5],
+          link1: h_link[0], link2: h_link[1], link3: h_link[2], link4: h_link[3], link5: h_link[4], link6: h_link[5]
+        });
+  
+      } else {
+        responce.on("data", function (data) {
+          invalid_chack = 1;
+          const wdata = JSON.parse(data);
+          temp = Math.floor(Number(wdata.main.temp));
+          temp_f = Math.floor(wdata.main.feels_like);
+          icon = wdata.weather[0].icon;
+          link = "/img/" + icon + "@2x.png"
+          main = wdata.weather[0].main;
+          dt = givedate(Number(wdata.dt + "000"));
+          cloudy = wdata.clouds.all + "%";
+          humidity = wdata.main.humidity + "%";
+          wind = parseInt(((wdata.wind.speed) * 18) / 5) + "Km/h";
+          pressure = wdata.main.pressure + "hPa";
+  
+  
         })
-        responce.on("end", async () => {
-          const fdata = JSON.parse(datas);
-          for (let i = 0; i < 6; i++) {
-            let sec = parseInt((fdata.list[i].dt + "000"));
-            let h_dt = new Date(sec);
-            let h_hour = h_dt.getHours();
-            if (h_hour > 12) {
-              h_hour = (h_hour - 12) + "pm";
-            } else {
-              h_hour = h_hour + "am";
+        let url2 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=ce3bfcd5c9db9c2e58557b2c6082c035&units=metric"
+        https.get(url2, function (responce) {
+  
+          var datas=[];
+          responce.on("data", async function (data) {
+            await datas.push(data);
+          })
+          responce.on("end", async () => {
+            const fdata = JSON.parse(datas);
+            for (let i = 0; i < 6; i++) {
+              let sec = parseInt((fdata.list[i].dt + "000"));
+              let h_dt = new Date(sec);
+              let h_hour = h_dt.getHours();
+              if (h_hour > 12) {
+                h_hour = (h_hour - 12) + "pm";
+              } else {
+                h_hour = h_hour + "am";
+              }
+              h_time[i] = h_hour
+              let pop = ((fdata.list[i].pop) * 100);
+              h_pop[i] = parseInt(pop) + "%";
+              let t = parseInt(fdata.list[i].main.temp);
+              h_temp[i] = t;
+              let l = fdata.list[i].weather[0].icon
+              h_link[i] = "/img/" + l + "@2x.png";
             }
-            h_time[i] = h_hour
-            let pop = ((fdata.list[i].pop) * 100);
-            h_pop[i] = parseInt(pop) + "%";
-            let t = parseInt(fdata.list[i].main.temp);
-            h_temp[i] = t;
-            let l = fdata.list[i].weather[0].icon
-            h_link[i] = "/img/" + l + "@2x.png";
-          }
-          res.render('index', {
-            temp: temp, temp_f: temp_f, link: link, city: city, invalid: "", date: dt, main: main,
-            pressure: pressure, wind: wind, cloudy: cloudy, humidity: humidity,
-            temp1: h_temp[0], temp2: h_temp[1], temp3: h_temp[2], temp4: h_temp[3], temp5: h_temp[4], temp6: h_temp[5],
-            pop1: h_pop[0], pop2: h_pop[1], pop3: h_pop[2], pop4: h_pop[3], pop5: h_pop[4], pop6: h_pop[5],
-            time1: h_time[0], time2: h_time[1], time3: h_time[2], time4: h_time[3], time5: h_time[4], time6: h_time[5],
-            link1: h_link[0], link2: h_link[1], link3: h_link[2], link4: h_link[3], link5: h_link[4], link6: h_link[5]
-          });
-
+            res.render('index', {
+              temp: temp, temp_f: temp_f, link: link, city: city, invalid: "", date: dt, main: main,
+              pressure: pressure, wind: wind, cloudy: cloudy, humidity: humidity,
+              temp1: h_temp[0], temp2: h_temp[1], temp3: h_temp[2], temp4: h_temp[3], temp5: h_temp[4], temp6: h_temp[5],
+              pop1: h_pop[0], pop2: h_pop[1], pop3: h_pop[2], pop4: h_pop[3], pop5: h_pop[4], pop6: h_pop[5],
+              time1: h_time[0], time2: h_time[1], time3: h_time[2], time4: h_time[3], time5: h_time[4], time6: h_time[5],
+              link1: h_link[0], link2: h_link[1], link3: h_link[2], link4: h_link[3], link5: h_link[4], link6: h_link[5]
+            });
+  
+          })
         })
-      })
-    }
-
-  });
+      }
+  
+    }); 
+  } catch (e) {
+    console.log(e);
+    res.redirect("/")
+  }
 
 })
 
@@ -259,5 +264,5 @@ console.log("Error")
 })
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Port 3000");
+  console.log(`Port ${process.env.PORT ||"3000"}`);
 })
