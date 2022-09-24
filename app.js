@@ -130,7 +130,10 @@ app.post("/", function (req, res) {
             await datas.push(data);
           })
           responce.on("end", async () => {
-            const fdata = JSON.parse(datas);
+            var fdata;
+            try {
+              fdata = JSON.parse(datas); 
+            
             for (let i = 0; i < 6; i++) {
               let sec = parseInt((fdata.list[i].dt + "000"));
               let h_dt = new Date(sec);
@@ -147,7 +150,9 @@ app.post("/", function (req, res) {
               h_temp[i] = t;
               let l = fdata.list[i].weather[0].icon
               h_link[i] = "/img/" + l + "@2x.png";
-            }
+            }} catch (err) {
+            console.log(err);
+          }
             res.render('index', {
               temp: temp, temp_f: temp_f, link: link, city: city, invalid: "", date: dt, main: main,
               pressure: pressure, wind: wind, cloudy: cloudy, humidity: humidity,
