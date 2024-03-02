@@ -30,4 +30,4 @@ jobs:
       # Add your deployment script or commands here
       run: |
         echo "Deployment script or commands go here"
-        npm app.js
+        node app.js
