@@ -34,12 +34,17 @@ jobs:
         echo "Deployment script or commands go here"
         ls
         cd ../
+        echo "Deployment script or commands go here"
         ls
         cd ../
+        echo "Deployment script or commands go here"
         ls 
         cd ../
+        echo "Deployment script or commands go here"
         ls
         cd ../
+        echo "Deployment script or commands go here"
         ls
         cd ../
+        echo "Deployment script or commands go here"
         ls
