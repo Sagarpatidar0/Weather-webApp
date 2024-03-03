@@ -4,7 +4,7 @@
   "description": "Weather website",
   "main": "app.js",
   "engines": {
-    "node": "14.x"
+    "node": "20.x"
   },
   "scripts": {
     "start": "node app.js",
